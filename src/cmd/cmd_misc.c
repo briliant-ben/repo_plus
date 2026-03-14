@@ -24,7 +24,7 @@ int cmd_help_run(CmdContext *ctx, int argc, char **argv) {
   if (argc >= 2) {
     const SubCommand *sc = cmd_find(argv[1]);
     if (!sc) {
-      fprintf(stderr, "rpp: '%s' is not a repo command.  See 'repo help'.\n",
+      fprintf(stderr, "rpp: '%s' is not a rpp command.  See .rpp help..\n",
               argv[1]);
       return 1;
     }

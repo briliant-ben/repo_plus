@@ -3,8 +3,8 @@
 #
 # After running this script:
 #   cd test_repo/workspace
-#   repo-plus init -u file://path/to/test_repo/server/manifest.git
-#   repo-plus sync
+#   rpp init -u file://path/to/test_repo/server/manifest.git
+#   rpp sync
 #
 set -euo pipefail
 
@@ -99,10 +99,10 @@ echo ""
 echo "Server repos:"
 ls "$SERVER/"
 echo ""
-echo "To test repo-plus:"
+echo "To test rpp:"
 echo "  cd $WORKSPACE"
-echo "  repo-plus init -u file://$SERVER/manifest.git"
-echo "  repo-plus sync"
-echo "  repo-plus status"
-echo "  repo-plus list"
-echo "  repo-plus forall -c 'echo \$REPO_PROJECT'"
+echo "  rpp init -u file://$SERVER/manifest.git"
+echo "  rpp sync"
+echo "  rpp status"
+echo "  rpp list"
+echo "  rpp forall -c 'echo \$REPO_PROJECT'"
