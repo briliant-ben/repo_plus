@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../color.h"
 #include "../git_ops.h"
 #include "cmd.h"
 
@@ -62,7 +63,7 @@ int cmd_info_run(CmdContext *ctx, int argc, char **argv) {
          "refs/heads/master"); /* Simplification for now */
   printf("Manifest server: %s\n",
          m->def.remote_name[0] ? m->def.remote_name : "origin");
-  printf("----------------------------\n");
+  color_printf(COLOR_HEADER, "----------------------------\n");
 
   for (int i = 0; i < m->project_count; i++) {
     Project *p = &m->projects[i];
@@ -83,7 +84,7 @@ int cmd_info_run(CmdContext *ctx, int argc, char **argv) {
     char worktree[2048];
     snprintf(worktree, sizeof(worktree), "%s/%s", ctx->topdir, p->path);
 
-    printf("Project: %s\n", p->name);
+    color_printf(COLOR_HEADER, "Project: %s\n", p->name);
     printf("Mount path: %s\n", p->path);
     char *curr_branch = git_current_branch(worktree);
     printf("Current revision: %s\n", curr_branch ? curr_branch : "(detached)");

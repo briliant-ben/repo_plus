@@ -19,6 +19,7 @@ typedef struct {
   char topdir[1024];  /* workspace root */
   int verbose;
   int quiet;
+  int color; /* 0: never, 1: always, 2: auto */
 } CmdContext;
 
 /* Subcommand descriptor */

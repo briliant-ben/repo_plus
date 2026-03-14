@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../color.h"
 #include "../git_ops.h"
 #include "cmd.h"
 
@@ -33,6 +34,9 @@ int cmd_grep_run(CmdContext *ctx, int argc, char **argv) {
   const char *git_args[64];
   int git_argc = 0;
   git_args[git_argc++] = "grep";
+  if (ctx->color == 1) {
+    git_args[git_argc++] = "--color=always";
+  }
   for (int i = 1; i < argc; i++) {
     if (git_argc < 63) {
       git_args[git_argc++] = argv[i];
@@ -56,7 +60,8 @@ int cmd_grep_run(CmdContext *ctx, int argc, char **argv) {
       char *line = output;
       char *token = strtok(line, "\n");
       while (token) {
-        printf("%s/%s\n", p->path, token);
+        color_printf(COLOR_HEADER, "%s/", p->path);
+        printf("%s\n", token);
         token = strtok(NULL, "\n");
         found_any = 1;
       }

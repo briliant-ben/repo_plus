@@ -1,4 +1,3 @@
-#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -276,12 +275,14 @@ char *git_status_porcelain(const char *worktree) {
 /* Diff                                                                 */
 /* ------------------------------------------------------------------ */
 
-char *git_diff(const char *worktree, int stat_only) {
+char *git_diff(const char *worktree, int stat_only, int use_color) {
   const char *args[8];
   int i = 0;
   args[i++] = "diff";
   if (stat_only)
     args[i++] = "--stat";
+  if (use_color)
+    args[i++] = "--color=always";
   args[i] = NULL;
 
   char *buf = NULL;

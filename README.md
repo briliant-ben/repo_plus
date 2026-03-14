@@ -31,4 +31,4 @@ To run the tests:
 ```
 
 ## Usage
-Run `rpp --help` for a list of available commands.
+Run `rpp help` for a list of available commands.

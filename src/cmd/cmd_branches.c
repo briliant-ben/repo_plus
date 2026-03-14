@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../color.h"
 #include "../git_ops.h"
 #include "cmd.h"
 
@@ -25,8 +26,8 @@ int cmd_branches_run(CmdContext *ctx, int argc, char **argv) {
     return 1;
   }
 
-  int n_filter = argc;
-  char **filter = argv;
+  int n_filter = argc - 1;
+  char **filter = argv + 1;
   Manifest *m = ctx->manifest;
 
   for (int i = 0; i < m->project_count; i++) {
@@ -64,10 +65,14 @@ int cmd_branches_run(CmdContext *ctx, int argc, char **argv) {
         /* In a more advanced version, we'd aggregate branches across projects.
          */
         if (!has_branches) {
-          printf("\nproject %s/ :\n", p->path);
+          color_printf(COLOR_HEADER, "\nproject %s/ :\n", p->path);
           has_branches = 1;
         }
-        printf("  %s\n", line);
+        if (line[0] == '*') {
+          color_printf(COLOR_ADDED, "  %s\n", line);
+        } else {
+          printf("  %s\n", line);
+        }
         line = strtok(NULL, "\n");
       }
     }

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../color.h"
 #include "../git_ops.h"
 #include "cmd.h"
 
@@ -232,9 +233,10 @@ int cmd_diff_run(CmdContext *ctx, int argc, char **argv) {
     char worktree[2048];
     snprintf(worktree, sizeof(worktree), "%s/%s", ctx->topdir, p->path);
 
-    char *diff = git_diff(worktree, 0);
+    int use_color = (ctx->color == 1);
+    char *diff = git_diff(worktree, 0, use_color);
     if (diff && diff[0] != '\0') {
-      printf("\nproject %s/\n", p->path);
+      color_printf(COLOR_HEADER, "\nproject %s/\n", p->path);
       printf("%s", diff);
     }
     free(diff);

@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include "color.h"
+#include "git_ops.h"
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -218,6 +220,7 @@ int main(int argc, char *argv[]) {
   int verbose = 0;
   int quiet = 0;
   int paginate = 0;
+  int color = 2; /* auto */
 
   int i = 1;
   while (i < argc && argv[i][0] == '-') {
@@ -233,6 +236,15 @@ int main(int argc, char *argv[]) {
       i++;
     } else if (strcmp(argv[i], "-q") == 0 || strcmp(argv[i], "--quiet") == 0) {
       quiet = 1;
+      i++;
+    } else if (strncmp(argv[i], "--color=", 8) == 0) {
+      const char *val = argv[i] + 8;
+      if (strcmp(val, "always") == 0) color = 1;
+      else if (strcmp(val, "never") == 0) color = 0;
+      else color = 2;
+      i++;
+    } else if (strcmp(argv[i], "--color") == 0) {
+      color = 1;
       i++;
     } else if (strcmp(argv[i], "--version") == 0) {
       /* Handle --version as a global flag too */
@@ -267,6 +279,21 @@ int main(int argc, char *argv[]) {
   memset(&ctx, 0, sizeof(ctx));
   ctx.verbose = verbose;
   ctx.quiet = quiet;
+  ctx.color = color;
+
+  /* If color is auto, check git config */
+  if (color == 2) {
+    char *ui = git_config_get(NULL, "color.ui");
+    if (ui) {
+      if (strcmp(ui, "always") == 0 || strcmp(ui, "true") == 0 || strcmp(ui, "yes") == 0) {
+        ctx.color = 1;
+      } else if (strcmp(ui, "never") == 0 || strcmp(ui, "false") == 0 || strcmp(ui, "no") == 0) {
+        ctx.color = 0;
+      }
+      free(ui);
+    }
+  }
+  color_init(ctx.color);
 
   /* init command does not need an existing manifest */
   int needs_manifest =

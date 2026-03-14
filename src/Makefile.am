@@ -4,6 +4,7 @@ rpp_SOURCES = \
     main.c \
     manifest.c \
     git_ops.c \
+    color.c \
     tasks.c \
     cmd/cmd_misc.c \
     cmd/cmd_init.c \

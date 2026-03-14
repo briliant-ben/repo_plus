@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../color.h"
 #include "../git_ops.h"
 #include "../tasks.h"
 #include "cmd.h"
@@ -38,9 +39,9 @@ static int print_project_status(const Project *p, const char *topdir,
 
   if (!is_clean) {
     char *branch = git_current_branch(worktree);
-    printf("project %s/", p->path);
+    color_printf(COLOR_HEADER, "project %s/", p->path);
     if (branch)
-      printf("  (branch %s)", branch);
+      color_printf(COLOR_HEADER, "  (branch %s)", branch);
     putchar('\n');
     free(branch);
 
@@ -73,7 +74,17 @@ static int print_project_status(const Project *p, const char *topdir,
           col2 = '-';
           break;
         }
-        printf(" %c%c     %s\n", col1, col2, filename);
+        
+        ColorSlot slot;
+        if (idx_status != ' ' && idx_status != '?' && work_status == ' ') {
+          slot = COLOR_ADDED;
+        } else if (idx_status == '?' || work_status != ' ') {
+          slot = COLOR_CHANGED; // repo uses 'changed' (red) for worktree mods
+        } else {
+          slot = COLOR_NORMAL;
+        }
+        
+        color_printf(slot, " %c%c     %s\n", col1, col2, filename);
       }
 
       if (!nl)

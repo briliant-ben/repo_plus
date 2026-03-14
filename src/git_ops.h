@@ -89,7 +89,7 @@ char *git_status_porcelain(const char *worktree);
  * Run `git diff` (working tree vs. index) and return output.
  * Caller must free.
  */
-char *git_diff(const char *worktree, int stat_only);
+char *git_diff(const char *worktree, int stat_only, int use_color);
 
 /*
  * Initialize a bare repository at path.
