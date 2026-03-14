@@ -1,0 +1,5 @@
+# Project AI Rules
+1. We are using standard C99/C11.
+2. The project framework is `autotools` (autoconf, automake).
+3. Ensure no memory leaks and perform robust error checking.
+4. Check `agents/rules` for more specific development and domain rules!
