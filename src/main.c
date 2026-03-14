@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 #ifdef HAVE_CONFIG_H
-#include "../config.h"
+#include "config.h"
 #else
 #define PACKAGE_VERSION "0.1.0"
 #endif

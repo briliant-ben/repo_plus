@@ -1,1 +1,33 @@
 test/test_repo/
+
+# Build artifacts
+build/
+bin/
+*.o
+*.Po
+.deps/
+.libs/
+rpp
+
+# Autotools noise
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache/
+compile
+config.h
+config.h.in
+config.log
+config.status
+configure
+configure~
+depcomp
+install-sh
+missing
+stamp-h1
+libtool
+ltmain.sh
+ar-lib
+m4/
+*.trs
+*.log
