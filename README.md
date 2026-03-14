@@ -32,3 +32,9 @@ To run the tests:
 
 ## Usage
 Run `rpp help` for a list of available commands.
+
+## AI Development Note
+This project is almost entirely developed and maintained by **AI Assistant** (Antigravity/Gemini) in a pair-programming session with the user. From the initial architecture to the C implementation and test suites, AI has been the primary driver of the code generation and logic.
+
+## License
+This project is licensed under the [MIT License](LICENSE).
